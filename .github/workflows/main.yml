@@ -1,0 +1,35 @@
+name: Tests
+
+on: [pull_request]
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: "Build App"
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        run: npm run build
+
+      - name: "Start Server"
+        run: npm start &
+
+      - name: Run tests
+        run: npm run test
+
+      - name: Upload coverage report to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }} # Github'un secrets bölümünden ekleyeceğiniz bir token'e ihtiyacınız olacak.
+          file: ./coverage/lcov.info # Test kapsamını belirlemek için kullanılan dosya yolunu belirtin. Burada örnek bir yol verilmiştir, kendi proje yapılandırmanıza göre değiştirebilirsiniz.
