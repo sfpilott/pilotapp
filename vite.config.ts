@@ -6,7 +6,6 @@ import istanbul from "vite-plugin-istanbul";
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
-
   // const is_sourcemap_disabled =
   //   mode === "development" || !env.SENTRY_AUTH_TOKEN;
 
