@@ -6,8 +6,6 @@ import istanbul from "vite-plugin-istanbul";
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
-  // const is_sourcemap_disabled =
-  //   mode === "development" || !env.SENTRY_AUTH_TOKEN;
 
   return {
     plugins: [
@@ -16,15 +14,6 @@ export default defineConfig(({ mode }) => {
         cypress: true,
         requireEnv: false,
       }),
-      // sentryVitePlugin({
-      //   disable: is_sourcemap_disabled,
-      //   release: {
-      //     name: version,
-      //   },
-      //   authToken: env.SENTRY_AUTH_TOKEN,
-      //   org: "arealai",
-      //   project: "example-ci-project",
-      // }),
     ],
     server: {
       port: 3000,
