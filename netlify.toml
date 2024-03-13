@@ -1,0 +1,16 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  CYPRESS_CACHE_FOLDER = "./node_modules/CypressBinary"
+  TERM = "xterm"
+
+[[plugins]]
+  package = "netlify-plugin-cypress"
+  [plugins.inputs.preBuild]
+    enable = true
+    start = 'npm run dev'
+    wait-on = 'http://localhost:3000'
+    wait-on-timeout = '30'
+      
